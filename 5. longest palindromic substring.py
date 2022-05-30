@@ -21,5 +21,3 @@ class Solution:
             if len(res) < len(t2):
                 res = t2
         return res
-
-    
