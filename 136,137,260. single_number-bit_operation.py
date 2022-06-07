@@ -63,13 +63,13 @@ class Solution:
 
 # 使用两位二进制数字来扫描每一个数字的第i位（计算时实际上是同时扫描所有位）
 # https://leetcode.cn/problems/single-number-ii/solution/single-number-ii-mo-ni-san-jin-zhi-fa-by-jin407891/
-# class Solution:
-#     def singleNumber(self, nums) -> int:
-#         ones, twos = 0, 0
-#         for num in nums:
-#             ones = ones ^ num & ~twos
-#             twos = twos ^ num & ~ones
-#         return ones
+class Solution:
+    def singleNumber(self, nums) -> int:
+        ones, twos = 0, 0
+        for num in nums:
+            ones = ones ^ num & ~twos
+            twos = twos ^ num & ~ones
+        return ones
 
 if  __name__ == '__main__':
     Solution().singleNumber([1,2,1,3,2,5])
