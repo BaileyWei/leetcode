@@ -72,3 +72,33 @@ class Solution:
                 dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j][1]+prices[i])
                 dp[i][j][1] = max(dp[i-1][j][1], dp[i-1][j-1][0]-prices[i])
         return dp[-1][2][0]
+
+# 714. 多了手续费
+# dp
+class Solution:
+    def maxProfit(self, prices, fee) -> int:
+        dp = [[0,0] for _ in range(len(prices))]
+        dp[0][1] = -prices[0]
+        for i in range(1,len(prices)):
+            dp[i][0] = max(dp[i-1][0], dp[i-1][1]+prices[i]-fee)
+            dp[i][1] = max(dp[i-1][0]-prices[i], dp[i-1][1])
+        return dp[-1][0]
+
+
+# greedy
+class Solution:
+    def maxProfit(self, prices, fee: int) -> int:
+        minnum = prices[0]
+        res = 0
+        if len(prices) < 2:
+            return 0
+        for i in range(1, len(prices)):
+            if prices[i] < minnum:
+                # 说明当前价格比卖出价格还低，可以重新购入，所以不会撤回卖出操作
+                minnum = prices[i]
+            elif prices[i] - minnum - fee > 0:
+                # 等价于更新了卖出的时间为prices[i]
+                res += prices[i] - minnum - fee
+                # 记录这个节点，以便回撤 （主要是手续费回撤）
+                minnum = prices[i] - fee
+        return res
