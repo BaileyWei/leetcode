@@ -18,23 +18,23 @@ class Solution:
 # 69
 # https://leetcode.cn/problems/sqrtx/
 # 和普通二分法不一样的地方就在于这道题找的值一定存在
-# 左闭右开？
+# 闭区间
 class Solution:
     def mySqrt(self, x: int) -> int:
         if x <= 1:
             return x
         left,right = 0, x
         while left < right:
-            # +1防止死循环 
+            # +1防止死循环
             mid = left + (right-left+1)//2
             if x/mid == mid:
                 return mid
             elif x/mid > mid:
                 # 这里的区间跟一般的二分查找不一样，因为此时mid可能是要找的答案 所以不能使用mid+1
-                # [mid, right)
+                # [mid, right]
                 left = mid
             elif x/mid < mid:
-                # [left, mid-1)
+                # [left, mid-1]
                 right = mid - 1
         return left
 
