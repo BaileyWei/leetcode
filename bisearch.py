@@ -18,12 +18,14 @@ class Solution:
 # 69
 # https://leetcode.cn/problems/sqrtx/
 # 和普通二分法不一样的地方就在于这道题找的值一定存在
-# 闭区间
+# 更像是闭区间寻找一个数
 class Solution:
     def mySqrt(self, x: int) -> int:
         if x <= 1:
             return x
         left,right = 0, x
+        # 这里用小于可能因为mid可能是答案，所以搜索区间应该截止到[left,left],
+        # 这样返回的时候可以返回left 说明此时left就是答案
         while left < right:
             # +1防止死循环
             mid = left + (right-left+1)//2
